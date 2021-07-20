@@ -1,0 +1,10 @@
+version: '2'
+services:
+  postgresql:
+    image: postgres:11.5-alpine
+    environment:
+      - POSTGRES_USER=xtarefas
+      - POSTGRES_PASSWORD=xtarefas
+      - POSTGRES_DB=xtarefas
+    ports:
+    - 5429:5432

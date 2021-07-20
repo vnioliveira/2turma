@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="marcos.oliveira" id="20210719180000-01" >
+        <createSequence sequenceName="sq_anexo"
+                        startValue="1"
+                        incrementBy="1"
+        />
+        <createTable tableName="tb_anexo">
+            <column name="co_anexo" type="bigint"
+                    remarks="ID DO ANEXO">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_file" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="no_filename" type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="co_tarefa" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="tb_anexo"
+                       columnNames="co_anexo"
+        />
+        <addForeignKeyConstraint
+                baseTableName="tb_anexo"
+                baseColumnNames="co_tarefa"
+                constraintName="fk_tarefa_anexo"
+                referencedTableName="tb_tarefa"
+                referencedColumnNames="co_tarefa"
+        />
+    </changeSet>
+</databaseChangeLog>

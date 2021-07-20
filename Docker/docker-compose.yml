@@ -1,0 +1,6 @@
+version: '2'
+services:
+  postgresql-xtarefas:
+    extends:
+      service: postgresql
+      file: postgresql.yml

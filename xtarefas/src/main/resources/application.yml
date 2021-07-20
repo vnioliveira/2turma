@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: XTarefas
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+  hibernate:
+    ddl-auto: none
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  jackson:
+    date-format: dd-MM-yyyy
+    deserialization:
+      fail-on-unknown-properties: false
+  datasource:
+    url: jdbc:postgresql://localhost:5429/xtarefas
+    username: xtarefas
+    password: xtarefas
+  liquibase:
+    change-log: classpath:/config/liquibase/master.xml
