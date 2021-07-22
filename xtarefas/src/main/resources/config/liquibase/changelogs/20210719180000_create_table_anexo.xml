@@ -22,6 +22,9 @@
             <column name="co_tarefa" type="bigint">
                 <constraints  nullable="false"/>
             </column>
+            <column name="nu_uuid" type="TEXT">
+                <constraints/>
+            </column>
         </createTable>
         <addPrimaryKey tableName="tb_anexo"
                        columnNames="co_anexo"

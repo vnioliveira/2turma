@@ -3,6 +3,7 @@ package com.basis.campina.xtarefas.web.rest;
 import com.basis.campina.xtarefas.service.AnexoService;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,36 +21,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/anexo")
 @RequiredArgsConstructor
+@Slf4j
 public class AnexoResource {
 
     private final AnexoService service;
 
     @GetMapping
-    public ResponseEntity<List<AnexoDTO>> listar(){
-        List<AnexoDTO> list = service.listar();
-        if(list.isEmpty())
-            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    public ResponseEntity<List<AnexoDTO>> buscarTodos(){
+        log.debug("Requisição REST request para buscar todos os Anexo");
+        return ResponseEntity.ok(service.buscarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AnexoDTO> obterPorId(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.obterPorId(id));
+    public ResponseEntity<AnexoDTO> buscarPorId(@PathVariable Long id){
+        log.debug("Requisição REST request para buscar Anexo por id");
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-    @PostMapping
-    public ResponseEntity<AnexoDTO> salvar(@Valid @RequestBody AnexoDTO entidadeDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(entidadeDTO));
+    @PostMapping()
+    public ResponseEntity<Void> salvar(@RequestBody AnexoDTO anexoDTO){
+        log.debug("Requisição REST request para salvar Anexo:", anexoDTO);
+        service.salvar(anexoDTO);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<AnexoDTO> editar(@Valid @RequestBody AnexoDTO entidadeDTO){
-        return ResponseEntity.ok().body(service.editar(entidadeDTO));
+    @PutMapping()
+    public ResponseEntity<Void> editar(@RequestBody AnexoDTO anexoDTO){
+        log.debug("Requisição REST request para editar Anexo:", anexoDTO);
+        service.editar(anexoDTO);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id){
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
+        log.debug("Requisição REST request para deletar Anexo por id");
         service.remover(id);
         return ResponseEntity.ok().build();
     }
+
+
+
+
 }

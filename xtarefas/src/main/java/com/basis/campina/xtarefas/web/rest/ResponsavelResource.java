@@ -26,7 +26,7 @@ public class ResponsavelResource {
 
     @GetMapping
     public ResponseEntity<List<ResponsavelDTO>> listar(){
-        List<ResponsavelDTO> list = service.listar();
+        List<ResponsavelDTO> list = service.buscarTodos();
         if(list.isEmpty())
             return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -34,7 +34,7 @@ public class ResponsavelResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponsavelDTO> obterPorId(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.obterPorId(id));
+        return ResponseEntity.ok().body(service.buscarPorId(id));
     }
 
     @PostMapping

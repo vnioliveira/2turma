@@ -8,11 +8,14 @@ import com.basis.campina.xtarefas.repository.TarefaRepository;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
 import com.basis.campina.xtarefas.service.dto.ResponsavelDTO;
 import com.basis.campina.xtarefas.service.dto.TarefaDTO;
+import com.basis.campina.xtarefas.service.event.ResponsavelEvent;
+import com.basis.campina.xtarefas.service.event.TarefaEvent;
 import com.basis.campina.xtarefas.service.mapper.ResponsavelMapper;
 import com.basis.campina.xtarefas.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,8 @@ public class TarefaService {
     private final TarefaMapper mapper;
 
     private final TarefaRepository repository;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional(readOnly = true)
     public TarefaDTO obterPorId(Long id) {
@@ -50,9 +55,9 @@ public class TarefaService {
         repository.delete(tarefa);
     }
 
-    public TarefaDTO salvar(TarefaDTO tarefaDTO) {
-        Tarefa tarefa = mapper.toEntity(tarefaDTO);
-        repository.save(tarefa);
+    public TarefaDTO salvar(TarefaDTO dto){
+        Tarefa tarefa = repository.save(mapper.toEntity(dto));
+        applicationEventPublisher.publishEvent(new TarefaEvent(tarefa.getId()));
         return mapper.toDto(tarefa);
     }
 }

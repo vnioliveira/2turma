@@ -5,15 +5,21 @@ import com.basis.campina.xtarefas.domain.Tarefa;
 import com.basis.campina.xtarefas.repository.AnexoRepository;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
 import com.basis.campina.xtarefas.service.dto.TarefaDTO;
+import com.basis.campina.xtarefas.service.event.AnexoEvent;
+import com.basis.campina.xtarefas.service.event.ResponsavelEvent;
+import com.basis.campina.xtarefas.service.feign.DocumentClient;
 import com.basis.campina.xtarefas.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -25,31 +31,37 @@ public class AnexoService {
 
     private final AnexoRepository repository;
 
+    private final DocumentClient documentClient;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public AnexoDTO salvar(AnexoDTO dto){
+        dto.setUuid(UUID.randomUUID().toString());
+        Anexo anexo = repository.save(mapper.toEntity(dto));
+        applicationEventPublisher.publishEvent(new AnexoEvent(anexo.getId()));
+        return mapper.toDto(anexo);
+    }
+
     @Transactional(readOnly = true)
-    public AnexoDTO obterPorId(Long id) {
-        return mapper.toDto(repository.getById(id));
+    public AnexoDTO buscarPorId(Long id){
+        AnexoDTO anexoDTO = mapper.toDto(repository.getById(id));
+        documentClient.buscarDocument(anexoDTO.getFile());
+        return anexoDTO;
     }
 
-    public AnexoDTO editar(AnexoDTO anexoDTO) {
-        Anexo anexo = mapper.toEntity(anexoDTO);
-        repository.save(anexo);
-        return mapper.toDto(anexo);
+    @Transactional(readOnly = true)
+    public List<AnexoDTO> buscarTodos(){
+        return mapper.toListagemDTO(repository.findAll());
     }
 
-    public List<AnexoDTO> listar() {
-        List<Anexo> anexos = repository.findAll();
-        return mapper.toListagemDto(anexos);
+    public void remover(Long id){
+        AnexoDTO dto = this.buscarPorId(id);
+        documentClient.deletarDocument(dto.getFile());
+        repository.deleteById(id);
     }
 
-    public void remover(Long id) {
-        Anexo anexo = mapper.toEntity(obterPorId(id));
-        repository.delete(anexo);
+    public void editar(AnexoDTO dto){
+        this.buscarPorId(dto.getId());
+        this.salvar(dto);
     }
-
-    public AnexoDTO salvar(AnexoDTO anexoDTO) {
-        Anexo anexo = mapper.toEntity(anexoDTO);
-        repository.save(anexo);
-        return mapper.toDto(anexo);
-    }
-
 }

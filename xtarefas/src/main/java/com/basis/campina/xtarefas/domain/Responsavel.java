@@ -29,7 +29,7 @@ public class Responsavel implements Serializable {
     private String nome;
 
     @Column(name = "NO_EMAIL", nullable = false)
-    private String EMAIL;
+    private String email;
 
     @Column(name = "DT_DATANASCIMENTO", nullable = false)
     private LocalDate dataNascimento;

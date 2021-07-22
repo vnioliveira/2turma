@@ -14,7 +14,7 @@ public class ResponsavelDTO implements Serializable {
 
     private String nome;
 
-    private String EMAIL;
+    private String email;
 
     private LocalDate dataNascimento;
 }

@@ -39,4 +39,6 @@ public class Anexo implements Serializable {
     @JoinColumn(name ="CO_TAREFA")
     private Tarefa tarefa;
 
+    @Column(name = "NU_UUID")
+    private String uuid;
 }

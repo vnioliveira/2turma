@@ -16,5 +16,5 @@ public interface AnexoMapper {
     @Mapping(target = "idTarefa",source = "tarefa.id")
     AnexoDTO toDto(Anexo entity);
 
-    List<AnexoDTO> toListagemDto(List<Anexo> anexos);
+    List<AnexoDTO> toListagemDTO(List<Anexo> anexos);
 }
