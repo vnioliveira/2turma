@@ -1,2 +1,2 @@
 # 2turma
-Projeto com SprigBoot  tendo foco em ElasticSearche Minio
+Projeto com SprigBoot  tendo foco em ElasticSearch e Minio
