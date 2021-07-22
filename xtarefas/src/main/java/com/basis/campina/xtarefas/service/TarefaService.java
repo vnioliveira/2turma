@@ -1,16 +1,9 @@
 package com.basis.campina.xtarefas.service;
 
-import com.basis.campina.xtarefas.domain.Anexo;
-import com.basis.campina.xtarefas.domain.Responsavel;
 import com.basis.campina.xtarefas.domain.Tarefa;
-import com.basis.campina.xtarefas.repository.ResponsavelRepository;
 import com.basis.campina.xtarefas.repository.TarefaRepository;
-import com.basis.campina.xtarefas.service.dto.AnexoDTO;
-import com.basis.campina.xtarefas.service.dto.ResponsavelDTO;
 import com.basis.campina.xtarefas.service.dto.TarefaDTO;
-import com.basis.campina.xtarefas.service.event.ResponsavelEvent;
 import com.basis.campina.xtarefas.service.event.TarefaEvent;
-import com.basis.campina.xtarefas.service.mapper.ResponsavelMapper;
 import com.basis.campina.xtarefas.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

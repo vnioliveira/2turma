@@ -1,11 +1,8 @@
 package com.basis.campina.xtarefas.service.elasticsearch;
 
 import com.basis.campina.xtarefas.domain.elasticsearch.AnexoDocument;
-import com.basis.campina.xtarefas.domain.elasticsearch.TarefaDocument;
 import com.basis.campina.xtarefas.repository.AnexoRepository;
-import com.basis.campina.xtarefas.repository.TarefaRepository;
 import com.basis.campina.xtarefas.repository.elastic.AnexoSearchRepository;
-import com.basis.campina.xtarefas.repository.elastic.TarefaSearchRepository;
 import com.basis.campina.xtarefas.service.event.AnexoEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

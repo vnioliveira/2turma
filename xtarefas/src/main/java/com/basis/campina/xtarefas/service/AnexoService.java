@@ -1,12 +1,9 @@
 package com.basis.campina.xtarefas.service;
 
 import com.basis.campina.xtarefas.domain.Anexo;
-import com.basis.campina.xtarefas.domain.Tarefa;
 import com.basis.campina.xtarefas.repository.AnexoRepository;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
-import com.basis.campina.xtarefas.service.dto.TarefaDTO;
 import com.basis.campina.xtarefas.service.event.AnexoEvent;
-import com.basis.campina.xtarefas.service.event.ResponsavelEvent;
 import com.basis.campina.xtarefas.service.feign.DocumentClient;
 import com.basis.campina.xtarefas.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

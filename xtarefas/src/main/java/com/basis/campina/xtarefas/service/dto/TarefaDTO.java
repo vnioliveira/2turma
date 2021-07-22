@@ -1,13 +1,10 @@
 package com.basis.campina.xtarefas.service.dto;
 
-import com.basis.campina.xtarefas.domain.Anexo;
-import com.basis.campina.xtarefas.domain.Responsavel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter

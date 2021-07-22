@@ -1,12 +1,10 @@
 package com.basis.campina.xtarefas.service.dto;
 
-import com.sun.istack.NotNull;
-import liquibase.pro.packaged.I;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
