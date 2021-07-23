@@ -2,7 +2,12 @@
 package com.basis.campina.xtarefas.repository.elastic;
 
 import com.basis.campina.xtarefas.domain.elasticsearch.ResponsavelDocument;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-public interface ResponsavelSearchRepository extends ElasticsearchRepository<ResponsavelDocument, Long> {
+public interface ResponsavelSearchRepository extends ElasticEntity<ResponsavelDocument, Long> {
+
+    @Override
+    default Class<ResponsavelDocument> getEntityClass(){
+        return ResponsavelDocument.class;
+    }
+
 }

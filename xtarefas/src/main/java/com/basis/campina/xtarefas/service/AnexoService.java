@@ -1,16 +1,21 @@
 package com.basis.campina.xtarefas.service;
 
 import com.basis.campina.xtarefas.domain.Anexo;
+import com.basis.campina.xtarefas.domain.elasticsearch.AnexoDocument;
 import com.basis.campina.xtarefas.repository.AnexoRepository;
+import com.basis.campina.xtarefas.repository.elastic.AnexoSearchRepository;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
 import com.basis.campina.xtarefas.service.event.AnexoEvent;
 import com.basis.campina.xtarefas.service.feign.DocumentClient;
+import com.basis.campina.xtarefas.service.filter.AnexoFilter;
 import com.basis.campina.xtarefas.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +28,8 @@ import java.util.UUID;
 @Slf4j
 public class AnexoService {
 
+
+
     private final AnexoMapper mapper;
 
     private final AnexoRepository repository;
@@ -30,6 +37,8 @@ public class AnexoService {
     private final DocumentClient documentClient;
 
     private final ApplicationEventPublisher applicationEventPublisher;
+
+    private final AnexoSearchRepository anexoSearchRepository;
 
     public AnexoDTO salvar(AnexoDTO dto){
         dto.setUuid(UUID.randomUUID().toString());
@@ -60,4 +69,9 @@ public class AnexoService {
         this.buscarPorId(dto.getId());
         this.salvar(dto);
     }
+
+    public Page<AnexoDocument> pesquisar(AnexoFilter anexoFilter, Pageable pageable){
+        return anexoSearchRepository.search(anexoFilter.getFilter(),pageable);
+    }
+
 }

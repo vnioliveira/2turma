@@ -1,15 +1,20 @@
 package com.basis.campina.xtarefas.service;
 
 import com.basis.campina.xtarefas.domain.Responsavel;
+import com.basis.campina.xtarefas.domain.elasticsearch.ResponsavelDocument;
 import com.basis.campina.xtarefas.repository.ResponsavelRepository;
+import com.basis.campina.xtarefas.repository.elastic.ResponsavelSearchRepository;
 import com.basis.campina.xtarefas.service.dto.ResponsavelDTO;
 import com.basis.campina.xtarefas.service.event.ResponsavelEvent;
+import com.basis.campina.xtarefas.service.filter.ResponsavelFilter;
 import com.basis.campina.xtarefas.service.mapper.ResponsavelMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +29,7 @@ public class ResponsavelService {
     private final ResponsavelRepository repository;
     private final ResponsavelMapper mapper;
     private final ApplicationEventPublisher applicationEventPublisher;
-
+    private final ResponsavelSearchRepository responsavelSearchRepository;
     public ResponsavelDTO salvar(ResponsavelDTO dto){
         Responsavel responsavel = repository.save(mapper.toEntity(dto));
         applicationEventPublisher.publishEvent(new ResponsavelEvent(responsavel.getId()));
@@ -50,5 +55,10 @@ public class ResponsavelService {
         this.buscarPorId(dto.getId());
         return this.salvar(dto);
     }
+
+    public Page<ResponsavelDocument> pesquisar(ResponsavelFilter responsavelFilter, Pageable pageable){
+        return responsavelSearchRepository.search(responsavelFilter.getFilter(),pageable);
+    }
+
 
 }

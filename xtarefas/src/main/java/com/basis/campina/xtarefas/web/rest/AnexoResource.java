@@ -1,9 +1,13 @@
 package com.basis.campina.xtarefas.web.rest;
 
+import com.basis.campina.xtarefas.domain.elasticsearch.AnexoDocument;
 import com.basis.campina.xtarefas.service.AnexoService;
 import com.basis.campina.xtarefas.service.dto.AnexoDTO;
+import com.basis.campina.xtarefas.service.filter.AnexoFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,6 +59,11 @@ public class AnexoResource {
         log.debug("Requisição REST request para deletar Anexo por id");
         service.remover(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/pesquisar")
+    public ResponseEntity<Page<AnexoDocument>> pesquisar(@RequestBody AnexoFilter filter, Pageable pageable){
+        return ResponseEntity.ok(service.pesquisar(filter,pageable));
     }
 
 
