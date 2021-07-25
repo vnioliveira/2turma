@@ -16,11 +16,11 @@ public interface AnexoRepository extends JpaRepository<Anexo, Long>, Reindexer {
     Anexo getById(Long id);
 
     @Query("select new com.basis.campina.xtarefas.domain.elasticsearch.AnexoDocument("
-            + "a.id, a.file, a.fileName, a.uuid, a.tarefa) from Anexo a where a.id = :id")
+            + "a.id, a.file, a.fileName, a.tarefa, a.uuid) from Anexo a where a.id = :id")
     AnexoDocument getDocument(@Param("id") Long id);
 
     @Query("select new com.basis.campina.xtarefas.domain.elasticsearch.AnexoDocument("
-            + "a.id, a.file, a.fileName, a.uuid, a.tarefa) from Anexo a order by a.id")
+            + "a.id, a.file, a.fileName, a.tarefa, a.uuid) from Anexo a order by a.id")
     Page<AnexoDocument> reindexPage(Pageable pageable);
 
     @Override
