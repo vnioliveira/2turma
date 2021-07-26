@@ -1,0 +1,29 @@
+
+<h1> Lista de Anexos</h1>
+<div class="ui-g ui-fluid">
+    <div  class="ui-md-2 ui-sm-12">
+        <label for="tarefa" class="color-323C47"></label>
+        <input id="Nome" [(ngModel)]="anexo.querry" pInputText type="text" placeholder="Digite um nome para a busca"
+            maxlength="14" />
+        <div class=" p-p-3 p-d-flex p-jc-xl-end p-ai-end">
+            <button pButton (click)="this.buscarAnexos()" class="p-mr-2 button-success" type="button" icon="ui-icon-search" styleClass="p-button-sm"
+                label="Pesquisar"></button>
+        </div>
+    </div>
+</div>
+<p-table [value]="anexos.content">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>arquivo</th>
+            <th>Nome Arquivo</th>
+        </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-anexo>
+        <tr>
+            <td class="coluna-listagem-centralizado">{{anexo.file}}</td>
+            <td class="coluna-listagem-centralizado">{{anexo.fileName}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+

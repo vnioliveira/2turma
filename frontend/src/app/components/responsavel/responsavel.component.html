@@ -1,0 +1,31 @@
+
+<h1> Lista de Responsaveis</h1>
+<div class="ui-g ui-fluid">
+    <div  class="ui-md-2 ui-sm-12">
+        <label for="tarefa" class="color-323C47"></label>
+        <input id="Nome" [(ngModel)]="responsavel.querry" pInputText type="text" placeholder="Digite um nome para a busca"
+            maxlength="14" />
+        <div class=" p-p-3 p-d-flex p-jc-xl-end p-ai-end">
+            <button pButton (click)="this.buscarResponsaveis()" class="p-mr-2 button-success" type="button" icon="ui-icon-search" styleClass="p-button-sm"
+                label="Pesquisar"></button>
+        </div>
+    </div>
+</div>
+<p-table [value]="responsaveis.content">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nome </th>
+            <th>E-mail</th>
+            <th>Data de Nascimento</th>
+        </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-responsavel>
+        <tr>
+            <td class="coluna-listagem-centralizado">{{responsavel.nome}}</td>
+            <td class="coluna-listagem-centralizado">{{responsavel.email}}</td>
+            <td class="coluna-listagem-centralizado">{{responsavel.dataNascimento}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+

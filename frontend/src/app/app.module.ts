@@ -13,13 +13,18 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { ErrorModule, SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
-
+import { TableComponent } from './components/tarefa/tarefa.component';
+import { AnexoComponent } from './components/anexo/anexo.component';
+import { ResponsavelComponent } from './components/responsavel/responsavel.component';
 @NgModule({
     declarations: [
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
+        TableComponent,
+        AnexoComponent,
+        ResponsavelComponent,
     ],
     imports: [
         BlockUIModule.forRoot({
